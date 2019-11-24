@@ -26,13 +26,13 @@ class TocMachine(GraphMachine):
         reply_token = event.reply_token
         #send_text_message(reply_token, "Trigger state1")  #依state1產生 output : "Trigger state1" ?
         rand = random.randint(0,2)
-        img_url=""
+        img_url=''
         if rand==0:
-            img_url = "https://imgur.com/76qpcCc"
+            img_url = 'https://imgur.com/76qpcCc.png'
         elif rand==1:
-            img_url = "https://imgur.com/eVtNnum"
+            img_url = 'https://imgur.com/eVtNnum.png'
         elif rand==2:
-            img_url = "https://imgur.com/9iGL2iK"
+            img_url = 'https://imgur.com/9iGL2iK.png'
 
         send_image_url(reply_token, img_url)
         self.go_back()                            # state1產生output後自動回user state
