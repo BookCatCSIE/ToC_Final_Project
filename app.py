@@ -83,6 +83,7 @@ def callback():
 
 
 @app.route("/webhook", methods=["POST"])
+@handler.add(MessageEvent, message=TextMessage)
 def webhook_handler():
     #signature = request.headers["X-Line-Signature"]
     # get request body as text
@@ -97,12 +98,12 @@ def webhook_handler():
 
     # if event is MessageEvent and message is TextMessage, then echo text
     for event in events:
-        if not isinstance(event, MessageEvent):
-            continue
-        if not isinstance(event.message, TextMessage):
-            continue
-        if not isinstance(event.message.text, str):
-            continue
+        #if not isinstance(event, MessageEvent):
+        #    continue
+        #if not isinstance(event.message, TextMessage):
+        #    continue
+        #if not isinstance(event.message.text, str):
+        #    continue
         print(f"\nFSM STATE: {machine.state}")
         print(f"REQUEST BODY: \n{body}")
         response = machine.advance(event)
