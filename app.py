@@ -36,7 +36,7 @@ machine = TocMachine(
     show_conditions=True,
 )
 
-app = Flask(__name__, static_url_path="https://tocatapp.herokuapp.com/callback")
+app = Flask(__name__, static_url_path="")
 
 
 # get channel_secret and channel_access_token from your environment variable
