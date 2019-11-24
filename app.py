@@ -77,6 +77,8 @@ def callback():
         #    event.reply_token, TextSendMessage(text=event.message.text)
         #)
 
+        line_bot_api.push_message(event.push_token, TextSendMessage(text="輸入數字 : 1.御主抽從者 2.抽御神籤"))
+
     return "OK"
 
 
