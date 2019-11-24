@@ -51,9 +51,10 @@ if channel_access_token is None:
     print("Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.")
     sys.exit(1)
 
-line_bot_api = LineBotApi(channel_access_token)
-parser = WebhookParser(channel_secret)
-
+#line_bot_api = LineBotApi(channel_access_token)
+#parser = WebhookParser(channel_secret)
+line_bot_api = LineBotApi("Rm8xX4VBF4waMmWihvF6oqsbNhEHfJrV5qgh2jsU5u0Nh73SmBLwb8IOLMWCCpCsWEzSLx7UoMQugiEEgRV/iQPcclFWMCaJ1RXO8nkftlCih+ndu/BRrRPCnAjWX89r4CEGG64fr4ItC76iIwpqdwdB04t89/1O/w1cDnyilFU=")
+parser = WebhookParser("73a94799bad3cfacb1e3dc5d63fb6a48")
 
 @app.route("/callback", methods=["POST"])
 def callback():
@@ -79,7 +80,7 @@ def callback():
             event.reply_token, TextSendMessage(text=event.message.text)
             # 每次input時都產生一大串output ?
         )
-        push_text_message(self.push_token, "輸入數字 : 1.御主抽從者 2.抽御神籤") ###
+        #push_text_message(self.push_token, "輸入數字 : 1.御主抽從者 2.抽御神籤") ###
 
     return "OK"
 
