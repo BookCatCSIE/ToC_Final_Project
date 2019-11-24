@@ -25,14 +25,36 @@ class TocMachine(GraphMachine):
 
         reply_token = event.reply_token
         #send_text_message(reply_token, "Trigger state1")  #依state1產生 output : "Trigger state1" ?
-        rand = random.randint(0,2)
+        rand = random.randint(0,13)
         img_url=''
         if rand==0:
             img_url = 'https://imgur.com/76qpcCc.png'
         elif rand==1:
-            img_url = 'https://imgur.com/eVtNnum.png'
+            img_url = 'https://imgur.com/Hbla4WE.png'
         elif rand==2:
-            img_url = 'https://imgur.com/9iGL2iK.png'
+            img_url = 'https://imgur.com/EPnjFrF.png'
+        elif rand==3:
+            img_url = 'https://imgur.com/FzXrxF4.png'
+        elif rand==4:
+            img_url = 'https://imgur.com/VHKV9fh.png'
+        elif rand==5:
+            img_url = 'https://imgur.com/a1OoV4s.png'
+        elif rand==6:
+            img_url = 'https://imgur.com/5HWQuH0.png'
+        elif rand==7:
+            img_url = 'https://imgur.com/C6pN6dN.png'
+        elif rand==8:
+            img_url = 'https://imgur.com/AGcLk2B.png'
+        elif rand==9:
+            img_url = 'https://imgur.com/8v09XgC.png'
+        elif rand==10:
+            img_url = 'https://imgur.com/8ICBiAr.png'
+        elif rand==11:
+            img_url = 'https://imgur.com/yAYDNVu.png'
+        elif rand==12:
+            img_url = 'https://imgur.com/R1w37BY.png'
+        elif rand==13:
+            img_url = 'https://imgur.com/8MGq627.png'
 
         send_image_url(reply_token, img_url)
         self.go_back()                            # state1產生output後自動回user state
@@ -45,14 +67,24 @@ class TocMachine(GraphMachine):
 
         reply_token = event.reply_token
         #send_text_message(reply_token, "Trigger state2")  #依state2產生 output : "Trigger state2" ?
-        rand = random.randint(0,2)
+        rand = random.randint(0,7)
         text=""
         if rand==0:
             text = "大吉"
         elif rand==1:
-            text = "小吉"
+            text = "中吉"
         elif rand==2:
+            text = "小吉"
+        elif rand==3:
+            text = "吉"
+        elif rand==4:
+            text = "半吉"
+        elif rand==5:
             text = "末吉"
+        elif rand==6:
+            text = "末小吉"
+        elif rand==7:
+            text = "小凶"
 
         send_text_message(reply_token, text)
         self.go_back()                            # state2產生output後自動回user state
