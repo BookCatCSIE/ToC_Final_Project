@@ -6,10 +6,10 @@ from dotenv import load_dotenv
 from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError
 #from linebot.models import MessageEvent, TextMessage, TextSendMessage
-from linebot.models import * #-------------------------------------------------------
+from linebot.models import * #----------------------------------------------------
 
 from fsm import TocMachine
-from utils import send_text_message
+from utils import send_text_message, send_image_url, push_text_message
 
 load_dotenv()
 
@@ -40,8 +40,11 @@ app = Flask(__name__, static_url_path="")
 
 
 # get channel_secret and channel_access_token from your environment variable
+#channel_secret = os.getenv("LINE_CHANNEL_SECRET", None)
+#channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
 channel_secret = os.getenv("73a94799bad3cfacb1e3dc5d63fb6a48", None)
 channel_access_token = os.getenv("Rm8xX4VBF4waMmWihvF6oqsbNhEHfJrV5qgh2jsU5u0Nh73SmBLwb8IOLMWCCpCsWEzSLx7UoMQugiEEgRV/iQPcclFWMCaJ1RXO8nkftlCih+ndu/BRrRPCnAjWX89r4CEGG64fr4ItC76iIwpqdwdB04t89/1O/w1cDnyilFU=", None)
+
 if channel_secret is None:
     print("Specify LINE_CHANNEL_SECRET as environment variable.")
     #sys.exit(1)
@@ -49,9 +52,10 @@ if channel_access_token is None:
     print("Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.")
     #sys.exit(1)
 
+#line_bot_api = LineBotApi(channel_access_token)
+#parser = WebhookParser(channel_secret)
 line_bot_api = LineBotApi("Rm8xX4VBF4waMmWihvF6oqsbNhEHfJrV5qgh2jsU5u0Nh73SmBLwb8IOLMWCCpCsWEzSLx7UoMQugiEEgRV/iQPcclFWMCaJ1RXO8nkftlCih+ndu/BRrRPCnAjWX89r4CEGG64fr4ItC76iIwpqdwdB04t89/1O/w1cDnyilFU=")
 parser = WebhookParser("73a94799bad3cfacb1e3dc5d63fb6a48")
-
 
 @app.route("/callback", methods=["POST"])
 def callback():
@@ -68,53 +72,55 @@ def callback():
 
     # if event is MessageEvent and message is TextMessage, then echo text
     for event in events:
-    #    if not isinstance(event, MessageEvent):
-    #        continue
-    #    if not isinstance(event.message, TextMessage):
-    #        continue
+        if not isinstance(event, MessageEvent):
+            continue
+        if not isinstance(event.message, TextMessage):
+            continue
 
         #line_bot_api.reply_message(
         #    event.reply_token, TextSendMessage(text=event.message.text)
+        #    # 每次input時都產生一大串output ?
         #)
+        #push_text_message(self.push_token, "輸入數字 : 1.御主抽從者 2.抽御神籤") ###
+
         response = machine.advance(event)
         if response == False:
-            send_text_message(event.reply_token, "Not Entering any State")
-
-        #line_bot_api.push_message(event.push_token, TextSendMessage(text="輸入數字 : 1.御主抽從者 2.抽御神籤"))
+            #send_text_message(event.reply_token, "Not Entering any State")
+            send_text_message(event.reply_token, "輸入數字 : 1.御主抽從者 2.參拜者抽御神籤")
+            # input不符時產生的output
 
     return "OK"
 
-
+# 回覆訊息的地方?
 @app.route("/webhook", methods=["POST"])
-#@parser.add(MessageEvent, message=TextMessage)
-#def webhook_handler():
-#def handle_message(event):
-    #signature = request.headers["X-Line-Signature"]
-    # get request body as text
-    #body = request.get_data(as_text=True)
-    #app.logger.info(f"Request body: {body}")
+# def webhook_handler():
+    # signature = request.headers["X-Line-Signature"]
+    # # get request body as text
+    # body = request.get_data(as_text=True)
+    # app.logger.info(f"Request body: {body}")
 
-    # parse webhook body
-    #try:
-    #    events = parser.parse(body, signature)
-    #except InvalidSignatureError:
-    #    abort(400)
+    # # parse webhook body
+    # try:
+        # events = parser.parse(body, signature)
+    # except InvalidSignatureError:
+        # abort(400)
 
-    # if event is MessageEvent and message is TextMessage, then echo text
-    #for event in events:
-        #if not isinstance(event, MessageEvent):
-        #    continue
-        #if not isinstance(event.message, TextMessage):
-        #    continue
-        #if not isinstance(event.message.text, str):
-        #    continue
-        #print(f"\nFSM STATE: {machine.state}")
-        #print(f"REQUEST BODY: \n{body}")
-        #response = machine.advance(event)
-        #if response == False:
-            #send_text_message(event.reply_token, "Not Entering any State")
+    # # if event is MessageEvent and message is TextMessage, then echo text
+    # for event in events:
+        # if not isinstance(event, MessageEvent):
+            # continue
+        # if not isinstance(event.message, TextMessage):
+            # continue
+        # if not isinstance(event.message.text, str):
+            # continue
+        # print(f"\nFSM STATE: {machine.state}")
+        # print(f"REQUEST BODY: \n{body}")
+        # response = machine.advance(event)
+        # if response == False:
+            # send_text_message(event.reply_token, "Not Entering any State")
+            # # input不符時產生的output
 
-    #return "OK"
+    # return "OK"
 
 
 @app.route("/show-fsm", methods=["GET"])
