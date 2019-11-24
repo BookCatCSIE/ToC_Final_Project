@@ -8,7 +8,7 @@ import random
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
         self.machine = GraphMachine(model=self, **machine_configs)
-        push_text_message(self.push_token, "輸入數字 : 1.御主抽從者 2.抽御神籤") ###
+        #push_text_message(self.push_token, "輸入數字 : 1.御主抽從者 2.抽御神籤") ###
 
     def is_going_to_state1(self, event):
         text = event.message.text

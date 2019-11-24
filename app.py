@@ -8,7 +8,7 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 from fsm import TocMachine
-from utils import send_text_message, send_image_url
+from utils import send_text_message, send_image_url, push_text_message
 
 load_dotenv()
 
@@ -39,8 +39,10 @@ app = Flask(__name__, static_url_path="")
 
 
 # get channel_secret and channel_access_token from your environment variable
-channel_secret = os.getenv("LINE_CHANNEL_SECRET", None)
-channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
+#channel_secret = os.getenv("LINE_CHANNEL_SECRET", None)
+#channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
+channel_secret = os.getenv("73a94799bad3cfacb1e3dc5d63fb6a48", None)
+channel_access_token = os.getenv("Rm8xX4VBF4waMmWihvF6oqsbNhEHfJrV5qgh2jsU5u0Nh73SmBLwb8IOLMWCCpCsWEzSLx7UoMQugiEEgRV/iQPcclFWMCaJ1RXO8nkftlCih+ndu/BRrRPCnAjWX89r4CEGG64fr4ItC76iIwpqdwdB04t89/1O/w1cDnyilFU=", None)
 if channel_secret is None:
     print("Specify LINE_CHANNEL_SECRET as environment variable.")
     sys.exit(1)
@@ -76,6 +78,7 @@ def callback():
             event.reply_token, TextSendMessage(text=event.message.text)
             # 每次input時都產生一大串output ?
         )
+        push_text_message(self.push_token, "輸入數字 : 1.御主抽從者 2.抽御神籤") ###
 
     return "OK"
 
