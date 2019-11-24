@@ -67,33 +67,33 @@ def callback():
         abort(400)
 
     # if event is MessageEvent and message is TextMessage, then echo text
-    for event in events:
-        if not isinstance(event, MessageEvent):
-            continue
-        if not isinstance(event.message, TextMessage):
-            continue
+    #for event in events:
+    #    if not isinstance(event, MessageEvent):
+    #        continue
+    #    if not isinstance(event.message, TextMessage):
+    #        continue
 
         #line_bot_api.reply_message(
         #    event.reply_token, TextSendMessage(text=event.message.text)
         #)
 
-        line_bot_api.push_message(event.push_token, TextSendMessage(text="輸入數字 : 1.御主抽從者 2.抽御神籤"))
+        #line_bot_api.push_message(event.push_token, TextSendMessage(text="輸入數字 : 1.御主抽從者 2.抽御神籤"))
 
     return "OK"
 
 
 @app.route("/webhook", methods=["POST"])
 def webhook_handler():
-    signature = request.headers["X-Line-Signature"]
+    #signature = request.headers["X-Line-Signature"]
     # get request body as text
-    body = request.get_data(as_text=True)
-    app.logger.info(f"Request body: {body}")
+    #body = request.get_data(as_text=True)
+    #app.logger.info(f"Request body: {body}")
 
     # parse webhook body
-    try:
-        events = parser.parse(body, signature)
-    except InvalidSignatureError:
-        abort(400)
+    #try:
+    #    events = parser.parse(body, signature)
+    #except InvalidSignatureError:
+    #    abort(400)
 
     # if event is MessageEvent and message is TextMessage, then echo text
     for event in events:
