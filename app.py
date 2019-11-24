@@ -73,9 +73,12 @@ def callback():
     #    if not isinstance(event.message, TextMessage):
     #        continue
 
-        line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(text=event.message.text)
-        )
+        #line_bot_api.reply_message(
+        #    event.reply_token, TextSendMessage(text=event.message.text)
+        #)
+        response = machine.advance(event)
+        if response == False:
+            send_text_message(event.reply_token, "Not Entering any State")
 
         #line_bot_api.push_message(event.push_token, TextSendMessage(text="輸入數字 : 1.御主抽從者 2.抽御神籤"))
 
@@ -83,9 +86,9 @@ def callback():
 
 
 @app.route("/webhook", methods=["POST"])
-@parser.add(MessageEvent, message=TextMessage)
+#@parser.add(MessageEvent, message=TextMessage)
 #def webhook_handler():
-def handle_message(event):
+#def handle_message(event):
     #signature = request.headers["X-Line-Signature"]
     # get request body as text
     #body = request.get_data(as_text=True)
@@ -107,11 +110,11 @@ def handle_message(event):
         #    continue
         #print(f"\nFSM STATE: {machine.state}")
         #print(f"REQUEST BODY: \n{body}")
-        response = machine.advance(event)
-        if response == False:
-            send_text_message(event.reply_token, "Not Entering any State")
+        #response = machine.advance(event)
+        #if response == False:
+            #send_text_message(event.reply_token, "Not Entering any State")
 
-    return "OK"
+    #return "OK"
 
 
 @app.route("/show-fsm", methods=["GET"])
