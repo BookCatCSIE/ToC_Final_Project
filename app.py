@@ -83,7 +83,7 @@ def callback():
 
 
 @app.route("/webhook", methods=["POST"])
-@handler.add(MessageEvent, message=TextMessage)
+@parser.add(MessageEvent, message=TextMessage)
 #def webhook_handler():
 def handle_message(events):
     #signature = request.headers["X-Line-Signature"]
