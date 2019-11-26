@@ -4,6 +4,8 @@ from utils import send_text_message, send_image_url, push_text_message
 
 import random
 
+from crawler import movie
+
 
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
@@ -25,8 +27,9 @@ class TocMachine(GraphMachine):
 
         reply_token = event.reply_token
         #send_text_message(reply_token, "Trigger state1")  #依state1產生 output : "Trigger state1" ?
-        rand = random.randint(0,13)
+        rand = random.randint(0,21)
         img_url=''
+        text=""
         if rand==0:
             img_url = 'https://imgur.com/76qpcCc.png'
         elif rand==1:
@@ -55,8 +58,28 @@ class TocMachine(GraphMachine):
             img_url = 'https://imgur.com/R1w37BY.png'
         elif rand==13:
             img_url = 'https://imgur.com/8MGq627.png'
+        elif rand==14:
+            text = "大吉"
+        elif rand==15:
+            text = "中吉"
+        elif rand==16:
+            text = "小吉"
+        elif rand==17:
+            text = "吉"
+        elif rand==18:
+            text = "半吉"
+        elif rand==19:
+            text = "末吉"
+        elif rand==20:
+            text = "末小吉"
+        elif rand==21:
+            text = "小凶"
 
-        send_image_url(reply_token, img_url)
+        if rand<=13:
+            send_image_url(reply_token, img_url)
+        else:
+            send_text_message(reply_token, text)
+
         self.go_back()                            # state1產生output後自動回user state
 
     def on_exit_state1(self):
@@ -67,25 +90,7 @@ class TocMachine(GraphMachine):
 
         reply_token = event.reply_token
         #send_text_message(reply_token, "Trigger state2")  #依state2產生 output : "Trigger state2" ?
-        rand = random.randint(0,7)
-        text=""
-        if rand==0:
-            text = "大吉"
-        elif rand==1:
-            text = "中吉"
-        elif rand==2:
-            text = "小吉"
-        elif rand==3:
-            text = "吉"
-        elif rand==4:
-            text = "半吉"
-        elif rand==5:
-            text = "末吉"
-        elif rand==6:
-            text = "末小吉"
-        elif rand==7:
-            text = "小凶"
-
+        text=movie()
         send_text_message(reply_token, text)
         self.go_back()                            # state2產生output後自動回user state
 

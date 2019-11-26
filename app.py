@@ -86,7 +86,7 @@ def callback():
         response = machine.advance(event)
         if response == False:
             #send_text_message(event.reply_token, "Not Entering any State")
-            send_text_message(event.reply_token, "輸入數字 : 1.御主抽從者 2.參拜者抽御神籤")
+            send_text_message(event.reply_token, "輸入數字 : 1.御主抽從者or參拜者抽御神籤 2.最新電影")
             # input不符時產生的output
 
     return "OK"
@@ -130,5 +130,6 @@ def show_fsm():
 
 
 if __name__ == "__main__":
+    show_fsm()
     port = os.environ.get("PORT", 8000)
     app.run(host="0.0.0.0", port=port, debug=True)
