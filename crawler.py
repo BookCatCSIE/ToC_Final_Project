@@ -1,5 +1,5 @@
 import requests 
-from beautifulsoup4 import BeautifulSoup
+from bs4 import BeautifulSoup
 from urllib3.request import urlretrieve
 
 def movie():
