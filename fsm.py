@@ -4,8 +4,6 @@ from utils import send_text_message, send_image_url, push_text_message
 
 import random
 
-import crawler
-
 
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
@@ -90,7 +88,7 @@ class TocMachine(GraphMachine):
 
         reply_token = event.reply_token
         #send_text_message(reply_token, "Trigger state2")  #依state2產生 output : "Trigger state2" ?
-        text=movie()
+        text="111"
         send_text_message(reply_token, text)
         self.go_back()                            # state2產生output後自動回user state
 
