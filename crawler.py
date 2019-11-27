@@ -1,7 +1,7 @@
 import requests
 import re
 import random
-from beautifulsoup4 import BeautifulSoup
+from BeautifulSoup import BeautifulSoup
 from flask import Flask, request, abort
 from imgurpython import ImgurClient
 
