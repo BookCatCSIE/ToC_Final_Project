@@ -4,7 +4,7 @@ from utils import send_text_message, send_image_url, push_text_message
 
 import random
 
-from crawler import movie
+import crawler
 
 
 class TocMachine(GraphMachine):
