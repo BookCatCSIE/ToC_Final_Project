@@ -28,6 +28,11 @@ def push_text_message(push_token, text):
 
     return "OK"
 
+def send_sticker(reply_token, message):
+    line_bot_api = LineBotApi("Rm8xX4VBF4waMmWihvF6oqsbNhEHfJrV5qgh2jsU5u0Nh73SmBLwb8IOLMWCCpCsWEzSLx7UoMQugiEEgRV/iQPcclFWMCaJ1RXO8nkftlCih+ndu/BRrRPCnAjWX89r4CEGG64fr4ItC76iIwpqdwdB04t89/1O/w1cDnyilFU=")
+    line_bot_api.reply_message(reply_token, message)
+
+    return "OK"
 
 """
 def send_image_url(id, img_url):

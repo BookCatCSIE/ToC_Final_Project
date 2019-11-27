@@ -1,10 +1,8 @@
 from transitions.extensions import GraphMachine
 
-from utils import send_text_message, send_image_url, push_text_message
+from utils import send_text_message, send_image_url, push_text_message, send_sticker
 
 import random
-
-from linebot.models import StickerSendMessage
 
 
 class TocMachine(GraphMachine):
@@ -111,8 +109,7 @@ class TocMachine(GraphMachine):
                 s='5'   
 
             message = StickerSendMessage(package_id=p,sticker_id=s)
-            line_bot_api = LineBotApi("Rm8xX4VBF4waMmWihvF6oqsbNhEHfJrV5qgh2jsU5u0Nh73SmBLwb8IOLMWCCpCsWEzSLx7UoMQugiEEgRV/iQPcclFWMCaJ1RXO8nkftlCih+ndu/BRrRPCnAjWX89r4CEGG64fr4ItC76iIwpqdwdB04t89/1O/w1cDnyilFU=")
-            line_bot_api.reply_message(reply_token, message)
+            send_sticker(reply_token, message)
 
         else:
             push_text_message(event.push_token, "fffffffffff") ###
