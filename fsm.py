@@ -4,6 +4,8 @@ from utils import send_text_message, send_image_url, push_text_message, send_sti
 
 import random
 
+from linebot.models import StickerSendMessage
+
 
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
