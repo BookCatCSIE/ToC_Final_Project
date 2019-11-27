@@ -13,18 +13,32 @@ class TocMachine(GraphMachine):
     def is_going_to_state1(self, event):
         text = event.message.text
         #return text.lower() == "go to state1"  #檢查input text : "go to state1" ?
-        return text.lower() == "1"
+        #return text.lower() == "1"
+        return text.startswith('1')
 
     def is_going_to_state2(self, event):
         text = event.message.text
         #return text.lower() == "go to state2"  #檢查input text : "go to state2" ?
-        return text.lower() == "2"
+        #return text.lower() == "2"
+        return text.startswith('2')
 
     def on_enter_state1(self, event):
         print("I'm entering state1")
 
         reply_token = event.reply_token
         #send_text_message(reply_token, "Trigger state1")  #依state1產生 output : "Trigger state1" ?
+        text = event.message.text
+
+        if text.lower() == "1-1":
+            img_url = 'https://imgur.com/76qpcCc.png'
+            send_image_url(reply_token, img_url)
+        elif text.lower() == "1-2":
+            text = "大吉"
+            send_text_message(reply_token, text)
+        else:
+            send_text_message(event.reply_token, "輸入數字 : 1-1.御主抽從者 1-2.參拜者抽御神籤 2.")
+
+        '''
         rand = random.randint(0,21)
         img_url=''
         text=""
@@ -77,6 +91,7 @@ class TocMachine(GraphMachine):
             send_image_url(reply_token, img_url)
         else:
             send_text_message(reply_token, text)
+        '''
 
         self.go_back()                            # state1產生output後自動回user state
 
