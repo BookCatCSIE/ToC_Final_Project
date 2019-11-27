@@ -78,7 +78,6 @@ def callback():
 
         #line_bot_api.reply_message(
         #    event.reply_token, TextSendMessage(text=event.message.text)
-        #    # 每次input時都產生一大串output ?
         #)
         #push_text_message(self.push_token, "輸入數字 : 1.御主抽從者 2.抽御神籤") ###
 
