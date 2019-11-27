@@ -4,6 +4,8 @@ from utils import send_text_message, send_image_url, push_text_message
 
 import random
 
+from linebot.models import StickerSendMessage
+
 
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
@@ -86,7 +88,7 @@ class TocMachine(GraphMachine):
             send_text_message(reply_token, text)
 
         elif text.lower() == "1-3":
-            rand1 = random.randint(1,5)
+            rand1 = random.randint(1,3)
             rand2 = random.randint(1,5)
             p=''
             s=''
@@ -96,10 +98,6 @@ class TocMachine(GraphMachine):
                 p='2'
             elif rand1==3:
                 p='3'
-            elif rand1==4:
-                p='4'
-            elif rand1==5:
-                p='5'    
 
             if rand2==1:
                 s='1'
@@ -117,6 +115,7 @@ class TocMachine(GraphMachine):
             line_bot_api.reply_message(reply_token, message)
 
         else:
+            push_text_message(event.push_token, "fffffffffff") ###
             send_text_message(reply_token, "輸入數字 : 1-1.御主抽從者 1-2.參拜者抽御神籤 2.")
 
         '''
