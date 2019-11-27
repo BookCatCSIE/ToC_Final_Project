@@ -6,6 +6,8 @@ import random
 
 from linebot.models import StickerSendMessage
 
+import crawler
+
 
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
@@ -98,7 +100,7 @@ class TocMachine(GraphMachine):
             send_sticker(reply_token, message)
 
         else:
-            send_text_message(reply_token, "輸入數字 : \n1-1.御主抽從者 \n1-2.參拜者抽御神籤 \n1-3.隨機貼圖 \n2.")
+            send_text_message(reply_token, "輸入數字 :  1-1.御主抽從者  1-2.參拜者抽御神籤  1-3.隨機貼圖  2.")
 
         '''
         rand = random.randint(0,21)
@@ -165,7 +167,9 @@ class TocMachine(GraphMachine):
 
         reply_token = event.reply_token
         #send_text_message(reply_token, "Trigger state2")  #依state2產生 output : "Trigger state2" ?
-        text="111"
+        if text.lower() == "2-1":
+            text=eyny_movie()
+
         send_text_message(reply_token, text)
         self.go_back()                            # state2產生output後自動回user state
 
