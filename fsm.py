@@ -98,8 +98,7 @@ class TocMachine(GraphMachine):
             send_sticker(reply_token, message)
 
         else:
-            push_text_message(event.push_token, "fffffffffff") ###
-            send_text_message(reply_token, "輸入數字 : 1-1.御主抽從者 1-2.參拜者抽御神籤 2.")
+            send_text_message(reply_token, "輸入數字 : \n1-1.御主抽從者 \n1-2.參拜者抽御神籤 \n1-3.隨機貼圖 \n2.")
 
         '''
         rand = random.randint(0,21)
