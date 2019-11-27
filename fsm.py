@@ -84,9 +84,40 @@ class TocMachine(GraphMachine):
                 text = "小凶"
 
             send_text_message(reply_token, text)
-            
+
+        elif text.lower() == "1-3":
+            rand1 = random.randint(1,5)
+            rand2 = random.randint(1,5)
+            p=''
+            s=''
+            if rand1==1:
+                p='1'
+            elif rand1==2:
+                p='2'
+            elif rand1==3:
+                p='3'
+            elif rand1==4:
+                p='4'
+            elif rand1==5:
+                p='5'    
+
+            if rand2==1:
+                s='1'
+            elif rand2==2:
+                s='2'
+            elif rand2==3:
+                s='3'
+            elif rand2==4:
+                s='4'
+            elif rand2==5:
+                s='5'   
+
+            message = StickerSendMessage(package_id=p,sticker_id=s)
+            line_bot_api = LineBotApi("Rm8xX4VBF4waMmWihvF6oqsbNhEHfJrV5qgh2jsU5u0Nh73SmBLwb8IOLMWCCpCsWEzSLx7UoMQugiEEgRV/iQPcclFWMCaJ1RXO8nkftlCih+ndu/BRrRPCnAjWX89r4CEGG64fr4ItC76iIwpqdwdB04t89/1O/w1cDnyilFU=")
+            line_bot_api.reply_message(reply_token, message)
+
         else:
-            send_text_message(event.reply_token, "輸入數字 : 1-1.御主抽從者 1-2.參拜者抽御神籤 2.")
+            send_text_message(reply_token, "輸入數字 : 1-1.御主抽從者 1-2.參拜者抽御神籤 2.")
 
         '''
         rand = random.randint(0,21)
