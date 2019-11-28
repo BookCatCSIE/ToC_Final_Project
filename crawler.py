@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import random
 import time
 from datetime import timedelta, datetime
-from pymongo import MongoClient
+#from pymongo import MongoClient
 #ref: http://twstock.readthedocs.io/zh_TW/latest/quickstart.html#id2
 import twstock
 import matplotlib
