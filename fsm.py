@@ -6,8 +6,6 @@ import random
 
 from linebot.models import StickerSendMessage
 
-import crawler
-
 
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
@@ -89,6 +87,7 @@ class TocMachine(GraphMachine):
 
             send_text_message(reply_token, text)
 
+'''
         elif text.lower() == "1-3":
             sticker_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 100, 101, 102, 103, 104, 105, 106,
                     107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125,
@@ -98,9 +97,9 @@ class TocMachine(GraphMachine):
 
             message = StickerSendMessage(package_id='1',sticker_id=sticker_id)
             send_sticker(reply_token, message)
-
+'''
         else:
-            send_text_message(reply_token, "輸入數字 :  1-1.御主抽從者  1-2.參拜者抽御神籤  1-3.隨機貼圖  2.")
+            send_text_message(reply_token, "輸入數字 :  1-1.御主抽從者  1-2.參拜者抽御神籤  2.隨機貼圖 ")
 
         '''
         rand = random.randint(0,21)
@@ -167,13 +166,14 @@ class TocMachine(GraphMachine):
 
         reply_token = event.reply_token
         #send_text_message(reply_token, "Trigger state2")  #依state2產生 output : "Trigger state2" ?
-        #if text.lower() == "2-1":
-        #    text=
-        #send_text_message(reply_token, text)
+        sticker_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 100, 101, 102, 103, 104, 105, 106,
+                    107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125,
+                    126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 401, 402]
+        index_id = random.randint(0, len(sticker_ids) - 1)
+        sticker_id = str(sticker_ids[index_id])
 
-        text=event.message.text[1:]
-        content = stock1(text)
-        send_text_message(reply_token, content)
+        message = StickerSendMessage(package_id='1',sticker_id=sticker_id)
+        send_sticker(reply_token, message)
 
         self.go_back()                            # state2產生output後自動回user state
 
