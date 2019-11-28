@@ -1,29 +1,37 @@
-import json
-from selenium import webdriver
-GOOGLE_CHROME_BIN = '/app/.apt/usr/bin/google_chrome'
-CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
-def get_image_link(search_query):
-    img_urls = []
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.binary_location = GOOGLE_CHROME_BIN
-    #chrome_options.binary_location = GOOGLE_CHROME_PATH
-    chrome_options.add_argument('--disable-gpu')
-    chrome_options.add_argument('--no-sandbox')
-    driver = webdriver.Chrome(chrome_options=chrome_options,executable_path=CHROMEDRIVER_PATH)
-#    driver = webdriver.Chrome(executable_path='/app/.chromedriver/bin/chromedriver')
-    t = search_query[:-4]+'餐點價格'
-    url = 'https://www.google.com/search?q=' + t 
-    driver.get(url)
-    imges = driver.find_elements_by_xpath('//div[contains(@class,"rg_meta notranslate")]')
-    count = 0
-    for img in imges:
-        img_url = json.loads(img.get_attribute('innerHTML'))["ou"]
-        print(str(count)+'--->'+str(img_url))
-        if img_url.startswith('https') == False:
-            continue
-        img_urls.append(img_url)
-        if count > 1:
-            break
-        count = count + 1
-    driver.quit()
-    return img_urls
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+import random
+import time
+from datetime import timedelta, datetime
+from pymongo import MongoClient
+#ref: http://twstock.readthedocs.io/zh_TW/latest/quickstart.html#id2
+import twstock
+import matplotlib
+matplotlib.use('Agg') # ref: https://matplotlib.org/faq/howto_faq.html
+import matplotlib.pyplot as plt
+import pandas as pd
+from imgurpython import ImgurClient
+
+def stock1(text):
+    content = ''
+    stock_rt = twstock.realtime.get(text)
+    my_datetime = datetime.fromtimestamp(stock_rt['timestamp']+8*60*60)
+    my_time = my_datetime.strftime('%H:%M:%S')
+    content += '%s (%s) %s\n' %(stock_rt['info']['name'],stock_rt['info']['code'],my_time)
+    content += '現價: %s / 開盤: %s\n'%(stock_rt['realtime']['latest_trade_price'],stock_rt['realtime']['open'])
+    content += '最高: %s / 最低: %s\n' %(stock_rt['realtime']['high'],stock_rt['realtime']['low'])
+    content += '量: %s\n' %(stock_rt['realtime']['accumulate_trade_volume'])
+
+    stock = twstock.Stock(text)#twstock.Stock('2330')
+    content += '-----\n'
+    content += '最近五日價格: \n'
+    price5 = stock.price[-5:][::-1]
+    date5 = stock.date[-5:][::-1]
+
+    for i in range(len(price5)):
+        #content += '[%s] %s\n' %(date5[i].strftime("%Y-%m-%d %H:%M:%S"), price5[i])
+        content += '[%s] %s\n' %(date5[i].strftime("%Y-%m-%d"), price5[i])
+
+    return content
+
+
