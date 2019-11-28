@@ -5,11 +5,11 @@ CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 def get_image_link(search_query):
     img_urls = []
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.binary_location = os.getenv('GOOGLE_CHROME_BIN',None)
+    chrome_options.binary_location = GOOGLE_CHROME_BIN
     #chrome_options.binary_location = GOOGLE_CHROME_PATH
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--no-sandbox')
-    driver = webdriver.Chrome(chrome_options=chrome_options,executable_path=os.getenv('CHROMEDRIVER_PATH',None))
+    driver = webdriver.Chrome(chrome_options=chrome_options,executable_path=CHROMEDRIVER_PATH)
 #    driver = webdriver.Chrome(executable_path='/app/.chromedriver/bin/chromedriver')
     t = search_query[:-4]+'餐點價格'
     url = 'https://www.google.com/search?q=' + t 
