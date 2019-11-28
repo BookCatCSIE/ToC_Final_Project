@@ -167,10 +167,13 @@ class TocMachine(GraphMachine):
 
         reply_token = event.reply_token
         #send_text_message(reply_token, "Trigger state2")  #依state2產生 output : "Trigger state2" ?
-        if text.lower() == "2-1":
-            text=eyny_movie()
+        #if text.lower() == "2-1":
+        #    text=
+        #send_text_message(reply_token, text)
+        text=event.message.text[1:]
+        img_url = get_image_link(text)
+        send_image_url(reply_token, img_url)
 
-        send_text_message(reply_token, text)
         self.go_back()                            # state2產生output後自動回user state
 
     def on_exit_state2(self):
