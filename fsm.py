@@ -86,6 +86,9 @@ class TocMachine(GraphMachine):
                 text = "小凶"
 
             send_text_message(reply_token, text)
+            
+        else:
+            send_text_message(reply_token, "輸入數字 :  1-1.御主抽從者  1-2.參拜者抽御神籤  2.隨機貼圖 ")
 
 '''
         elif text.lower() == "1-3":
@@ -98,8 +101,7 @@ class TocMachine(GraphMachine):
             message = StickerSendMessage(package_id='1',sticker_id=sticker_id)
             send_sticker(reply_token, message)
 '''
-        else:
-            send_text_message(reply_token, "輸入數字 :  1-1.御主抽從者  1-2.參拜者抽御神籤  2.隨機貼圖 ")
+        
 
         '''
         rand = random.randint(0,21)
