@@ -1,4 +1,5 @@
 # ToC_Final_Project
+請看 Doc.pdf
 
 1.	輸入”Hi”，回應操作說明。
 2.	輸入”1-1”，進state1，隨機回應圖片，出state1。
