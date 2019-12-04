@@ -84,7 +84,7 @@ def callback():
         response = machine.advance(event)
         if response == False:
             #send_text_message(event.reply_token, "Not Entering any State")
-            send_text_message(event.reply_token, "輸入數字 :  1-1.御主抽從者  1-2.參拜者抽御神籤  1-3.隨機貼圖  2.爬蟲--科技新報 ")
+            send_text_message(event.reply_token, "輸入數字 :  1-1.御主抽從者  1-2.參拜者抽御神籤  1-3.隨機貼圖  2-1.爬蟲--科技新報  2-2.爬蟲--PTT表特版  2-3.爬蟲--油價 ")
             # input不符時產生的output
 
     return "OK"

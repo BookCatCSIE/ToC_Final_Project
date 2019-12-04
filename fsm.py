@@ -179,7 +179,8 @@ class TocMachine(GraphMachine):
         print("I'm entering state2")
 
         reply_token = event.reply_token
-
+        text = event.message.text
+        
         if text.lower() == "2-1":
             message = technews()
             send_text_message(reply_token, message)
