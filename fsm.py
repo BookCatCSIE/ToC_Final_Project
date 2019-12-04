@@ -6,6 +6,12 @@ import random
 
 from linebot.models import StickerSendMessage
 
+#-----------------------------------------------------------
+import requests
+import re
+from bs4 import BeautifulSoup
+from imgurpython import ImgurClient
+
 def technews():
     target_url = 'https://technews.tw/'
     print('Start parsing movie ...')
