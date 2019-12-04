@@ -6,6 +6,22 @@ import random
 
 from linebot.models import StickerSendMessage
 
+def technews():
+    target_url = 'https://technews.tw/'
+    print('Start parsing movie ...')
+    rs = requests.session()
+    res = rs.get(target_url, verify=False)
+    res.encoding = 'utf-8'
+    soup = BeautifulSoup(res.text, 'html.parser')
+    content = ""
+    for index, data in enumerate(soup.select('article div h1.entry-title a')):
+        if index == 12:
+            return content
+        title = data.text
+        link = data['href']
+        content += '{}\n{}\n\n'.format(title, link)
+    return content
+
 
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
@@ -21,8 +37,8 @@ class TocMachine(GraphMachine):
     def is_going_to_state2(self, event):
         text = event.message.text
         #return text.lower() == "go to state2"  #檢查input text : "go to state2" ?
-        #return text.lower() == "2"
-        return text.startswith('2')
+        return text.lower() == "2"
+        #return text.startswith('2')
 
     def on_enter_state1(self, event):
         print("I'm entering state1")
@@ -87,21 +103,20 @@ class TocMachine(GraphMachine):
 
             send_text_message(reply_token, text)
 
+        elif text.lower() == "1-3":
+            sticker_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 100, 101, 102, 103, 104, 105, 106,
+                    107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125,
+                    126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 401, 402]
+            index_id = random.randint(0, len(sticker_ids) - 1)
+            sticker_id = str(sticker_ids[index_id])
+
+            message = StickerSendMessage(package_id='1',sticker_id=sticker_id)
+            send_sticker(reply_token, message)
+
         else:
-            send_text_message(reply_token, "輸入數字 :  1-1.御主抽從者  1-2.參拜者抽御神籤  2.隨機貼圖 ")
+            send_text_message(reply_token, "輸入數字 :  1-1.御主抽從者  1-2.參拜者抽御神籤  1-3.隨機貼圖  2.爬蟲--科技新報 ")
 
 
-        #elif text.lower() == "1-3":
-        #    sticker_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 100, 101, 102, 103, 104, 105, 106,
-        #            107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125,
-        #            126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 401, 402]
-        #    index_id = random.randint(0, len(sticker_ids) - 1)
-        #    sticker_id = str(sticker_ids[index_id])
-
-        #    message = StickerSendMessage(package_id='1',sticker_id=sticker_id)
-        #    send_sticker(reply_token, message)
-
-        
 
         '''
         rand = random.randint(0,21)
@@ -168,14 +183,17 @@ class TocMachine(GraphMachine):
 
         reply_token = event.reply_token
         #send_text_message(reply_token, "Trigger state2")  #依state2產生 output : "Trigger state2" ?
-        sticker_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 100, 101, 102, 103, 104, 105, 106,
-                    107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125,
-                    126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 401, 402]
-        index_id = random.randint(0, len(sticker_ids) - 1)
-        sticker_id = str(sticker_ids[index_id])
+        #sticker_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 100, 101, 102, 103, 104, 105, 106,
+        #            107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125,
+        #            126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 401, 402]
+        #index_id = random.randint(0, len(sticker_ids) - 1)
+        #sticker_id = str(sticker_ids[index_id])
 
-        message = StickerSendMessage(package_id='1',sticker_id=sticker_id)
-        send_sticker(reply_token, message)
+        #message = StickerSendMessage(package_id='1',sticker_id=sticker_id)
+        #send_sticker(reply_token, message)
+
+        message = technews()
+        send_text_message(reply_token, message)
 
         self.go_back()                            # state2產生output後自動回user state
 
